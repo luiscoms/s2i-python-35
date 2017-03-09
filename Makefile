@@ -12,4 +12,4 @@ test:
 .PHONY: test-onbuild
 test-onbuild:
 	docker build -t $(IMAGE_NAME)-onbuild-candidate -f Dockerfile.onbuild .
-	IMAGE_NAME=$(IMAGE_NAME)-onbuild-candidate test/run-onbuild
+	GIT_SSL_NO_VERIFY=true IMAGE_NAME=$(IMAGE_NAME)-onbuild-candidate test/run-onbuild

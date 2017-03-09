@@ -6,9 +6,11 @@ RUN yum -y install epel-release &&\
     yum install -y libffi-devel &&\
     yum clean all -y
 
-
+ONBUILD ARG GIT_SSL_NO_VERIFY
 ONBUILD COPY requirements.txt /opt/app-root/src
+ONBUILD USER root
 ONBUILD RUN /bin/bash -c "pip install --no-cache-dir -r requirements.txt"
+ONBUILD USER 1001
 ONBUILD COPY . /opt/app-root/src
 
 # This default user after all instalation

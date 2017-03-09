@@ -56,7 +56,7 @@ container_port() {
 }
 
 run_build() {
-  docker build -t ${IMAGE_NAME}-testapp ${test_dir}/test-app
+  docker build --build-arg "GIT_SSL_NO_VERIFY=$GIT_SSL_NO_VERIFY" -t ${IMAGE_NAME}-testapp ${test_dir}/test-app
 }
 
 prepare() {
