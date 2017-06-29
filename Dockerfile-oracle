@@ -1,0 +1,14 @@
+FROM centos/python-35-centos7
+
+# Set a privileged user to install another dependencies
+USER root
+COPY rpms/*.rpm /tmp/
+RUN yum install -y /tmp/*.rpm &&\
+    yum clean all -y
+
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib:$LD_LIBRARY_PATH
+
+RUN rm -rf /tmp/*.rpm
+
+# This default user after all instalation
+USER 1001

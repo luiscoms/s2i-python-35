@@ -9,6 +9,11 @@
 # IMAGE_NAME specifies a name of the candidate image used for testing.
 # The image has to be available before this script is executed.
 #
+if [ $# -eq 0 ]; then
+  echo "ERROR: No test project name has been passed."
+  exit 1
+fi
+
 IMAGE_NAME=${IMAGE_NAME-python-35-centos7-custom-onbuild-candidate}
 
 # Determining system utility executables (darwin compatibility check)
@@ -19,6 +24,7 @@ if [[ "$OSTYPE" =~ 'darwin' ]]; then
   ! type -a "gmktemp" &>"/dev/null" || MKTEMP_EXEC="gmktemp"
 fi
 
+test_project=${1}
 test_dir="$($READLINK_EXEC -zf $(dirname "${BASH_SOURCE[0]}"))"
 image_dir=$($READLINK_EXEC -zf ${test_dir}/..)
 scripts_url="file://${image_dir}/.s2i/bin"
@@ -56,7 +62,7 @@ container_port() {
 }
 
 run_build() {
-  docker build --build-arg "GIT_SSL_NO_VERIFY=$GIT_SSL_NO_VERIFY" -t ${IMAGE_NAME}-testapp ${test_dir}/test-app
+  docker build --build-arg "GIT_SSL_NO_VERIFY=$GIT_SSL_NO_VERIFY" -t ${IMAGE_NAME}-testapp ${test_dir}/${test_project}
 }
 
 prepare() {
@@ -65,7 +71,7 @@ prepare() {
     exit 1
   fi
   # s2i build requires the application is a valid 'Git' repository
-  pushd ${test_dir}/test-app >/dev/null
+  pushd ${test_dir}/${test_project} >/dev/null
   git init
   git config user.email "build@localhost" && git config user.name "builder"
   git add -A && git commit -m "Sample commit"
@@ -85,7 +91,7 @@ cleanup() {
   if image_exists ${IMAGE_NAME}-testapp; then
     docker rmi ${IMAGE_NAME}-testapp
   fi
-  rm -rf ${test_dir}/test-app/.git
+  rm -rf ${test_dir}/${test_project}/.git
 }
 
 check_result() {
