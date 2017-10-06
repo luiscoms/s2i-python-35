@@ -1,0 +1,25 @@
+FROM python:3.5-alpine
+
+RUN apk add --no-cache git
+RUN apk add --no-cache --virtual .build-dependencies \
+ gcc \
+ python3-dev \
+ linux-headers \
+ musl-dev \
+ libffi-dev \
+ openssl-dev
+
+RUN mkdir -p /opt/app-root/src
+WORKDIR /opt/app-root/src
+
+ONBUILD ARG GIT_SSL_NO_VERIFY
+ONBUILD COPY requirements.txt /opt/app-root/src
+ONBUILD RUN pip install --no-cache-dir -r requirements.txt
+ONBUILD COPY . /opt/app-root/src
+# delete unused
+ONBUILD RUN apk del .build-dependencies
+
+
+COPY s2i/run /urs/local/bin/run
+
+CMD /urs/local/bin/run

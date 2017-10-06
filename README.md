@@ -13,7 +13,9 @@ Supported tags and respective `Dockerfile` links
 
 - With `libffi-devel` installed
   -   [`latest` (*Dockerfile*)](http://github.com/luiscoms/s2i-python-35/blob/master/Dockerfile)
--   [`onbuild` (*Dockerfile.onbuild*)](http://github.com/luiscoms/s2i-python-35/blob/master/Dockerfile.onbuild)
+  -   [`alpine` (*Dockerfile-alpine*)](http://github.com/luiscoms/s2i-python-35/blob/master/Dockerfile-alpine)
+  -   [`onbuild` (*Dockerfile.onbuild*)](http://github.com/luiscoms/s2i-python-35/blob/master/Dockerfile.onbuild)
+  -   [`alpine-onbuild` (*Dockerfile-alpine.onbuild*)](http://github.com/luiscoms/s2i-python-35/blob/master/Dockerfilealpine-alpine.onbuild)
 - With oracle client installed `oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64`
   -   [`oracle` (*Dockerfile-oracle*)](http://github.com/luiscoms/s2i-python-35/blob/master/Dockerfile-oracle)
   -   [`oracle-onbuild` (*Dockerfile-oracle*)](http://github.com/luiscoms/s2i-python-35/blob/master/Dockerfile-oracle.onbuild)
