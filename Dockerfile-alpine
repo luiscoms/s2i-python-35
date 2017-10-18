@@ -17,6 +17,6 @@ WORKDIR /opt/app-root/src
 
 # RUN apk del .build-dependencies
 
-COPY s2i/run /urs/local/bin/run
+COPY s2i/run /usr/local/bin/run
 
-CMD /urs/local/bin/run
+CMD /usr/local/bin/run
