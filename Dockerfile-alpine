@@ -1,9 +1,6 @@
 FROM python:3.5-alpine
 
-# HEALTHCHECK --interval=5m --timeout=3s \
-#   CMD curl -f http://localhost:8080/ || exit 1
-
-RUN apk add --no-cache --virtual .build-dependencies \
+RUN apk add --no-cache \
  git \
  gcc \
  python3-dev \
