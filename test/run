@@ -66,7 +66,9 @@ container_port() {
 }
 
 run_s2i_build() {
-  s2i build --incremental=true ${s2i_args} file://${test_dir}/${test_project} ${IMAGE_NAME} ${IMAGE_NAME}-testapp
+  s2i build --incremental=true ${s2i_args} \
+  -e "UPGRADE_PIP_TO_LATEST=$UPGRADE_PIP_TO_LATEST" \
+  file://${test_dir}/${test_project} ${IMAGE_NAME} ${IMAGE_NAME}-testapp
 }
 
 prepare() {
