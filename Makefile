@@ -28,6 +28,8 @@ test-onbuild:
 	docker build -t $(IMAGE_NAME)-onbuild-candidate -f Dockerfile.onbuild .
 	UPGRADE_PIP_TO_LATEST=1 \
 	IMAGE_NAME=$(IMAGE_NAME)-onbuild-candidate test/run-docker test-app
+	UPGRADE_PIP_TO_LATEST=1 \
+	IMAGE_NAME=$(IMAGE_NAME)-onbuild-candidate test/run-docker test-gunicorn-app
 
 .PHONY: test-oracle
 test-oracle:
