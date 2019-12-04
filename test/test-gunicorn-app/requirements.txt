@@ -1,4 +1,4 @@
 cryptography==2.1.2
 Eve==0.7.4
-PyYAML==3.12
+PyYAML==5.1
 gunicorn
